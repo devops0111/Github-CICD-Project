@@ -57,7 +57,7 @@ jobs:
     - name: Test Maven
       run: mvn test
 
-    Build-Project:
+  Build-Project:
 
     runs-on: self-hosted
     needs: Test
