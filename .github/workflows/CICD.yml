@@ -1,4 +1,3 @@
-
 name: CICD Pipeline
 
 on:
@@ -77,9 +76,9 @@ jobs:
         name: app-jar
         path: target/*.jar
 
- sonarqube:
+  sonarqube:
     runs-on: self-hosted
-    needs:Build-Project
+    needs: Build-Project
     steps:
     - uses: actions/checkout@v4
       with:
@@ -88,16 +87,14 @@ jobs:
     - name: SonarQube Scan
       uses: SonarSource/sonarqube-scan-action@v6.0.0 # Ex: v4.1.0 or sha1, See the latest version at https://github.com/marketplace/actions/official-sonarqube-scan
       env:
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-
-        
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}  
     - name: SonarQube Quality Gate check
-        id: sonarqube-quality-gate-check
-        uses: sonarsource/sonarqube-quality-gate-action@master
-        with:
-          pollingTimeoutSec: 600
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      id: sonarqube-quality-gate-check
+      uses: sonarsource/sonarqube-quality-gate-action@master
+      with:
+        pollingTimeoutSec: 600
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
     
 
 
